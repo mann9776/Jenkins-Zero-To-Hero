@@ -1,0 +1,25 @@
+"""
+Minimum hardware requirements:
+
+256 MB of RAM
+
+1 GB of drive space (although 10 GB is a recommended minimum if running Jenkins as a Docker container)
+"""
+First run -> sudo apt update -y
+Install java sdk -> 
+sudo apt install fontconfig openjdk-21-jre
+java -version
+Now, install jenkins ->
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+
+If Jenkins fails to start because a port is in use, run systemctl edit jenkins and add the following:
+[Service]
+Environment="JENKINS_PORT=8081"
+
+Here, "8081" was chosen but you can put another port available.
